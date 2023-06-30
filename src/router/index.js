@@ -2,8 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import Personajes from '@/views/Personajes.vue'
-import Personaje from '@/views/Personaje.vue'
-import Contacto from '@/views/Contacto.vue'
+//import Personaje from '@/views/Personaje.vue'
+//import Contacto from '@/views/Contacto.vue'
+import NotFound from '@/views/NotFound.vue'
 
 Vue.use(VueRouter)
 
@@ -23,16 +24,25 @@ const routes = [
   },
   {
     path: '/personajes',
-    component: Personajes
+    component: Personajes,
+    alias: ['/people','/characters']
   },
   {
     path: '/personaje/:id',
-    component: Personaje,
-    props: true
+    //component: Personaje,
+    props: true,
+    component: () => import(/* webpackChunkName: "personaje" */ '../views/Personaje.vue')
+
   },
   {
     path:'/contacto',
-    component: Contacto
+    //component: Contacto,
+    component: () => import(/* webpackChunkName: "contacto" */ '../views/Contacto.vue')
+
+  },
+  {
+    path:'*',
+    component: NotFound
   }
 ]
 
